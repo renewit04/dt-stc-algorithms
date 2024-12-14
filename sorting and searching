@@ -1,0 +1,147 @@
+Bubble sort
+Ý tưởng: thực hiện chuyển dần các phần tử có giá trị nhỏ hơn về đầu dãy, các phần tử có giá trị lớn hơn về cuối dãy
+void sort(int &a[], int n){
+	for(int i=0; i<n-1; i++){
+		for(int j=n-1; j>=i+1; j--){
+			if(a[j]<a[i]){
+				int temp = a[j];
+				a[j] = a[i];
+				a[i] = templ
+			}
+		}
+	}
+}
+Selection sort
+Ý tưởng: Chọn phần tử có giá trị nhỏ nhất trong các phần tử còn lại chuyển nó về đầu và loại bỏ nó khỏi dãy.
+void selectionSort(int &a[], int n){
+	for(int i=0; i<n-1; i++){
+		int min=i;
+		for(int j=i+1; j<n; j++){
+			if(a[j]>a[min]) min = j;
+		}
+		int temp = a[min];
+		a[min] = a[i];
+		a[i] = temp;
+	}
+}
+Insertion sort
+Ý tưởng: Lấy phần tử a[j] chèn vào dãy gồm các phần tử từ a[1] đến a[j-1] sao cho ta được dãy a[1] … a[j] được sắp. Trong đó dãy a[1] đến a[j-1] cũng là dãy đã được sắp
+void insertionSort(int &a[], int n){
+	for(int i=1; i<n; i++){
+		int j = i-1;
+		int x = a[i];
+		while(a[j]>x && j>=0){
+			a[j] = a[j+1];
+			j--;
+		}
+		a[j+1] = x;
+	}
+}
+Merge Sort
+Ý tưởng: 
+Giả sử cho 2 dãy a[i] -> a[k] và a[k+1] -> a[j] và 2 dãy này đã được sắp
+Thực hiện trộn 2 dãy thành dãy a[i] -> a[j] cũng được sắp
+void mergeSort(int &a[], int i, int k, int j){
+	int left=i, right = k+1, m=i, b[j-i+1];
+	while(left<=k && right<=j){
+		if(a[left] < a[right]){
+			b[m] = a[left]
+			left++;
+		}
+		else {
+			b[m] = a[right];
+			right++;
+		}
+		m++;
+	}
+	if(left>k){
+		for(int r=right; r<=j; r++){
+			b[m] = a[r];
+			m++;
+		}
+	}
+	else {
+		for(int r=left; r<=k; r++){
+			b[m] = a[r];
+			m++;
+		}
+	}
+	for(int r=i; r<=j; r++){
+		a[r] = b[r];
+	}
+}
+Quick Sort
+Ý tưởng: sử dụng phương pháp chia và trị
+Thực hiện phân hoạch dãy S thành 3 dãy S1, S2, S3
+S2 chỉ chứa 1 phần tử
+S1 chứa các phần tử <=S2
+S3 chứa các phần tử >S2
+S1, S3 có thể trống
+Tiếp tục phân hoạch dãy S1 và S3 độc lập theo nguyên tắc trên đến khi dãy cần thực hiện phân hoạch chỉ có 1 phần tử thì dừng lại.
+Khi đó ta có dãy đã được sắp
+void partition(int &a[], int i, int j, int &right){
+	int p = a[i];
+	int left=i, right=j;
+	while(left<right){
+		while(a[left]<=p && left<=right) left++;
+		while(a[right]>p) right--;
+		if(left<right){
+			int temp = a[left];
+			a[left] = a[right];
+			a[right] = temp;
+		}
+	}
+	if(i<right){
+		a[i] = a[right];
+		a[right] = p;
+	}
+}
+
+Heap Sort
+Ý tưởng:
+Tạo mảng a1 -> an biểu diễn cây heap
+Tráo đổi phần tử a1 với phần tử an
+Tạo mảng từ a1 -> an-1 biểu diễn cây heap
+Tráo đổi phần tử a1 với phần tử an-1
+Lặp lại đến khi mảng chỉ còn 1 phần tử
+void pushdown(int &a[], int i, int n){
+	int j = i, kt=0;
+	while(j<=n/2 && kt==0){
+		if(2*j==n){
+			max = 2*j;
+		}
+		else{
+			if(a[2*j]<a[2*j+1]) max = 2*j+1;
+			else max = 2*j;
+		}
+		if(a[j]<a[max]){
+			int temp = a[j];
+			a[j] = a[max];
+			a[max] = temp;
+			j = max;
+		}
+		else kt=1;
+	}
+}
+Tìm kiếm tuần tự
+bool search(int a[], int n, int x){
+	for(int i=0; i<n; i++){
+		if(a[i]==x) return true;
+	}
+	else return false;
+}
+
+Tìm kiếm nhị phân
+bool bisearch(int a[], int n, int x){
+	int left=0, right=n-1;
+	while(left<=right){
+		mid = (left+right)/2;
+		if(a[mid]==x) return true;
+		else if(a[mid]<x){
+			left=mid+1;
+		}
+		else right=mid-1;
+	}
+	return false;
+}
+
