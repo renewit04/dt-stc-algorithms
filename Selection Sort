@@ -1,0 +1,51 @@
+#include<iostream>
+using namespace std;
+void SELECTION_SORT(int a[], int n);
+void OUT_ARRAY(int a[], int n);
+void SWAP (int &a, int &b);
+
+
+int main(){
+    int a[] = {56, 34, 72, 3, 20, 31 ,47, 10 , 79};
+    int n = sizeof(a)/sizeof(a[0]);
+    cout << "\n n = " << n;
+    cout << "\nInput : " ; OUT_ARRAY(a,n); cout << endl;
+    SELECTION_SORT(a, n);
+    cout << "\nOUTPUT: " ; OUT_ARRAY(a,n);
+    return 0;
+}
+
+void SELECTION_SORT(int a[], int n){
+    for (int i = 1; i < n;i++)
+    {
+        
+        int jmin = i - 1;
+        for(int j = i - 1; j < n; j++)
+           if(a[j] < a[jmin] ) jmin = j;
+        if (jmin != i - 1) SWAP(a[i - 1], a[jmin]);
+        cout << "\ni = " << i << ": " ;
+        OUT_ARRAY(a, n);
+    }
+}
+
+void OUT_ARRAY(int a[] , int n) 
+{
+    for (int i = 0; i < n; i++)
+    {
+        cout << a[i] << " ";
+    }
+}
+void SWAP(int &a, int &b) 
+{
+    int tg =a;
+    a = b;
+    b = tg;
+}
+
+
+
+
+
+
+
+
