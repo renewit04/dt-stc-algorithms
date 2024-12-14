@@ -1,0 +1,182 @@
+
+#include<iostream>
+using namespace std;
+
+
+
+struct node
+{
+	int data; // stack đang ch?a các s? nguyên
+	struct node *pNext; // con tr? liên k?t gi?a các node v?i nhau
+};
+typedef struct node NODE;
+
+// khai báo c?u trúc c?a stack
+struct stack
+{
+	NODE *pTop; // dùng con tr? đ?u đ? qu?n lí stack
+};
+typedef struct stack STACK;
+
+// hàm kh?i t?o stack
+void KhoiTaoStack(STACK &s)
+{
+	s.pTop = NULL;
+}
+
+// hàm kh?i t?o 1 cái node
+NODE *KhoiTaoNode(int x)
+{
+	NODE *p = new NODE();
+	if (p == NULL)
+	{
+		cout << "\nKhong du bo nho de cap phat !!!";
+		return NULL;
+	}
+	p->data = x; // thêm giá tr? c?a bi?n x vào trong data c?a cái node
+	p->pNext = NULL;
+	return p;
+}
+
+// =============== KI?M TRA STACK CÓ R?NG HAY KHÔNG ===============
+bool IsEmpty(STACK s)
+{
+	// n?u danh sách r?ng
+	if (s.pTop == NULL)
+	{
+		return true;
+	}
+	return false;// danh sách có ph?n t?
+}
+
+// =============== THÊM 1 PH?N T? VÀO Đ?U STACK- LIFO ===============
+bool Push(STACK &s, NODE *p)
+{
+	if (p == NULL)
+	{
+		return false;
+	}
+
+	// n?u danh sách r?ng
+	if (IsEmpty(s) == true)
+	{
+		s.pTop = p; // node p chính là node đ?u stack
+	}
+	else // danh sách đ? có ph?n t?
+	{
+		p->pNext = s.pTop; // cho con tr? c?a node p tr? đ?n node đ?u danh sách <=> t?o kiên k?t
+		s.pTop = p; // c?p nh?t l?i node đ?u
+	}
+	return true;
+}
+
+// =============== L?Y PH?N T? Đ?U STACK VÀ H?Y NÓ ĐI - LIFO ===============
+bool Pop(STACK &s, int &x) // x chính là giá tr? c?n l?y trong node
+{
+	// n?u danh sách r?ng
+	if (IsEmpty(s) == true)
+	{
+		return false;
+	}
+	else
+	{
+		NODE *p = s.pTop; // node p chính là node th? m?ng đ? tí n?a chúng ta xóa nó đi
+		x = p->data; // gán giá tr? c?a node đ?u stack vào bi?n x	
+		s.pTop = s.pTop->pNext; // c?p nh?t node đ?u stack là node ti?p theo	
+		delete p; // xóa node đ?u stack v?a l?y 
+		
+	}
+	return true;// l?y ph?n t? đ?u stack thành công
+}
+
+
+// =============== XEM THÔNG TIN C?A PH?N T? Đ?U STACK - KHÔNG CÓ H?Y NÓ ĐI NHÉ ===============
+bool Top(STACK &s, int &x) // x chính là giá tr? c?n l?y ra đ? xem
+{
+	if (IsEmpty(s) == true)
+	{
+		return false;
+	}
+	x = s.pTop->data; // l?y giá tr? c?a ph?n t? đ?u stack ra đ? xem
+	return true;
+}
+
+// hàm xu?t danh sách stack
+void XuatStack(STACK s)
+{
+	while (IsEmpty(s) == false)
+	{
+		int x;
+		Pop(s, x);
+		cout << x << " ";
+	}
+
+	if (IsEmpty(s) == true)
+	{
+		cout << "\nDANH SACH DANG RONG KIA";
+	}
+	else
+	{
+		cout << "\nDANH SACH DANG TON TAI PHAN TU";
+	}
+}
+
+// hàm nh?p danh sách các s? nguyên trong stack
+void NhapStack(STACK &s)
+{
+	int luachon;
+	while (true)
+	{
+		system("cls");
+		cout << "\n\n\t\t ============== Menu ==============";
+		cout << "\n\t1. Them phan tu vao stack - Push";
+		cout << "\n\t2. Xuat danh sach stack ra man hinh - Pop";
+		cout << "\n\t3. Xem thong tin phan tu dau stack - Top";
+		cout << "\n\t0. Ket thuc";
+		cout << "\n\n\t\t ============== End ==============";
+
+		cout << "\nNhap lua chon: ";
+		cin >> luachon;
+		if (luachon == 1)
+		{
+			int x;
+			cout << "\nNhap phan tu can them: ";
+			cin >> x;
+			NODE *p = KhoiTaoNode(x);
+			Push(s, p);
+		}
+		else if (luachon == 2)
+		{
+			XuatStack(s);
+			system("pause");
+		}
+		else if (luachon == 3)
+		{
+			int x;
+			Top(s, x);
+			cout << "\nPhan tu dau stack la: " << x;
+			system("pause");
+		}
+		else
+		{
+			break;
+		}
+	}
+}
+
+int main()
+{
+	STACK s;
+	KhoiTaoStack(s);
+
+	NhapStack(s);
+
+	system("pause");
+	return 0;
+}
+
+
+
+
+
+
