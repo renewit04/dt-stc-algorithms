@@ -1,0 +1,55 @@
+
+#include <iostream>
+
+using namespace std;
+    void QUICK_SORT(int a[], int left, int right);
+    void OUT_ARRAY(int a[], int n);
+    void SWAP(int &a, int &b);
+int main()
+{
+ int a []= {53, 34, 72, 3};
+ int n = sizeof(a)/ sizeof(int);
+ cout << "\n n = " << n;
+ cout << "\nINPUT: " ; OUT_ARRAY(a, n); cout << "\n";
+ QUICK_SORT(a,0, n - 1);
+ cout << "\nOUTPUT: "; OUT_ARRAY(a, n);  
+ 
+    return 0;
+}
+void QUICK_SORT(int a[], int left, int right){
+    if (left >= right) return;
+    else if(left + 1 == right )
+    {
+        if(a[left] > a[right]) SWAP(a[left],a[right]);
+    }
+    else
+    {
+        int pivot = a[right];
+        int L = left - 1;
+        for(int j = left;j < right;j++)
+            if (a[j] <= pivot)
+            {
+                L++;
+                SWAP(a[L],a[j]);
+            }
+        SWAP(a[L + 1],a[right]);
+        QUICK_SORT(a, left, 1);
+        QUICK_SORT(a, L + 2, right );
+    }
+}
+
+void OUT_ARRAY(int a[], int n){
+    for (int i = 0 ; i < n;i ++){
+        cout << a[i] << " ";
+    }
+}
+void SWAP(int &a, int &b){
+   int tg = a;
+   a = b;
+   b = tg;
+}
+
+
+
+
+
